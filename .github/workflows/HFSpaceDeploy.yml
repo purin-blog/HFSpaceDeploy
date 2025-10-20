@@ -17,13 +17,13 @@ jobs:
       run: docker build . --file Dockerfile --tag hfspacedeploy:latest
     
     - name: Save Docker image
-      run: docker save HFSpaceDeploy:latest | gzip > HFSpaceDeploy.tar.gz
+      run: docker save hfspacedeploy:latest | gzip > hfspacedeploy.tar.gz
     
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: HFSpaceDeploy
-        path: HFSpaceDeploy.tar.gz
+        name: hfspacedeploy
+        path: hfspacedeploy.tar.gz
         compression-level: 0
     
     # 🆕 仅在推送标签时创建 Release
@@ -31,6 +31,6 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/')
       uses: softprops/action-gh-release@v1
       with:
-        files: HFSpaceDeploy.tar.gz
+        files: hfspacedeploy.tar.gz
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
